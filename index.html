@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beni Starphea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Schoolbell&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --paper-bg: #fffcf2;
+            --tape-pink: rgba(255, 182, 193, 0.6);
+            --tape-blue: rgba(173, 216, 230, 0.6);
+            --tape-green: rgba(184, 216, 190, 0.6);
+            --tape-yellow: rgba(238, 237, 168, 0.6);
+            --tape-dark: rgba(255, 0, 0, 0.6);
+            --ink: #433d3c;
+            --accent: #eb5e28;
+            --highlight: #fff2b2;
+        }
+
+        body {
+            background-color: #e9ecef;
+            background-image: radial-gradient(#ced4da 1px, transparent 1px);
+            background-size: 25px 25px;
+            font-family: 'Patrick Hand', cursive;
+            color: var(--ink);
+            margin: 0;
+            padding: 40px 10px;
+        }
+
+        .journal-page {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--paper-bg);
+            padding: 50px;
+            box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .washi-tape {
+            position: absolute;
+            width: 120px;
+            height: 35px;
+            background: var(--tape-pink);
+            transform: rotate(-5deg);
+            top: -15px;
+            left: 50%;
+            margin-left: -60px;
+            z-index: 10;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 40px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(123, 44, 191, 0.2);
+            margin: 0 auto 20px auto;
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Schoolbell', cursive;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            border-bottom: 2px dashed var(--ink);
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-wrap {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .social-link {
+            font-size: 1.8rem;
+            color: var(--ink);
+            margin: 0 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-family: 'Schoolbell', cursive;
+            background: var(--highlight);
+            display: inline-block;
+            padding: 0 15px;
+            transform: rotate(-1deg);
+            margin-bottom: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .art-piece {
+            background: white;
+            padding: 5px;
+            border: 1px solid #eee;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .art-piece img {
+            width: 100%;
+            display: block;
+        }
+
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .partner-card {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #eee;
+            text-align: center;
+            position: relative;
+            text-decoration: none;
+            color: var(--ink);
+            transition: 0.3s;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .partner-tape,
+        .partner-tape2,
+        .galery-tape {
+            position: absolute;
+            width: 60px;
+            height: 20px;
+            top: -10px;
+            left: 50%;
+            margin-left: -30px;
+            z-index: 5;
+        }
+
+        .partner-tape {
+            background: var(--tape-yellow);
+        }
+
+        .partner-tape2 {
+            background: var(--tape-green);
+        }
+
+        .galery-tape {
+            background: var(--tape-dark);
+        }
+
+        .partner-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 2px solid var(--highlight);
+        }
+
+        /* Tambahkan di dalam <style> */
+        .filter-container {
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            box-shadow: 4px 4px 0px var(--highlight);
+            transition: 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--highlight);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .art-piece.hidden {
+            display: none;
+            /* Menyembunyikan gambar yang tidak dipilih */
+        }
+
+        .tos-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tos-list li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .tos-list li::before {
+            content: '✎';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .price-category {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #eee;
+            box-shadow: 5px 5px 0px var(--highlight);
+            position: relative;
+        }
+
+        .price-category h3 {
+            font-family: 'Schoolbell', cursive;
+            margin-top: 0;
+            color: var(--accent);
+            border-bottom: 2px solid var(--highlight);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 1.1rem;
+        }
+
+        .price-val {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Table Styling */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            /* Memungkinkan scroll horizontal di HP */
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            /* Menjaga tabel tidak terlalu sempit */
+        }
+
+        th {
+            text-align: left;
+            border-bottom: 2px solid var(--ink);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        .status-tag {
+            background: var(--highlight);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .bookmarks {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .bookmark {
+            background: var(--highlight);
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-left: 5px solid var(--accent);
+            transition: 0.3s;
+        }
+
+        .bookmark:hover {
+            transform: translateX(-10px);
+            background: white;
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .bookmarks {
+                display: none;
+            }
+
+            .journal-page {
+                padding: 30px 20px;
+            }
+        }
+
+        section h2 {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        section h2::before {
+            content: '▶';
+            font-size: 0.7rem;
+            transition: transform 0.4s ease;
+            display: inline-block;
+        }
+
+        section.active h2::before {
+            transform: rotate(90deg);
+        }
+
+        .section-content {
+            max-height: 2000px;
+            opacity: 1;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top;
+        }
+
+        section.collapsed .section-content {
+            max-height: 0;
+            opacity: 0;
+            transform: scaleY(0);
+            pointer-events: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bookmarks">
+        <a href="#home" class="bookmark">Home</a>
+        <a href="#art" class="bookmark">Works</a>
+        <a href="#prices" class="bookmark">Prices</a>
+        <a href="#partners" class="bookmark">Friends</a>
+        <a href="#tos" class="bookmark" style="border-left-color: var(--tape-blue);">Rules/TOS</a>
+    </div>
+
+    <div class="journal-page" id="home">
+        <div class="washi-tape"></div>
+
+        <img src="/beni.png" alt="Beni" class="avatar">
+        <h1>Beni Starphea</h1>
+        <span class="subtitle">Art Commission</span>
+
+        <div class="social-wrap">
+            <a href="https://x.com/StarPhea69462" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            <a href="https://vgen.co/Starphea" class="social-link"><i class="fas fa-store"></i></a>
+        </div>
+
+        <section style="text-align: center;">
+            <p style="font-size: 1.4rem;">
+                Hi! I'm Beni. I draw cute things! <br>
+                Status: <span id="status-text" style="background: var(--highlight); padding: 5px;">Checking...</span>
+            </p>
+        </section>
+
+        <section id="art" class="active">
+            <h2 onclick="toggleSection('art')">Gallery</h2>
+            <div class="section-content">
+                <div class="filter-container">
+                    <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+                    <button class="filter-btn" onclick="filterGallery('illustration')">Illustration</button>
+                    <button class="filter-btn" onclick="filterGallery('chibi')">Chibi</button>
+                    <button class="filter-btn" onclick="filterGallery('sketch')">Sketch</button>
+                </div>
+
+                <div class="gallery">
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (1).png" alt="Illustration">
+                    </div>
+
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (2).png" alt="Illustration">
+                    </div>
+
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (3).png" alt="Illustration">
+                    </div>
+
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (4).png" alt="Illustration">
+                    </div>
+
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (5).png" alt="Illustration">
+                    </div>
+
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (6).png" alt="Illustration">
+                    </div>
+
+                    <div class="art-piece chibi" style="transform: rotate(2deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/chibi (1).png" alt="Chibi">
+                    </div>
+
+                    <div class="art-piece chibi" style="transform: rotate(2deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/chibi (2).png" alt="Chibi">
+                    </div>
+
+                    <div class="art-piece chibi" style="transform: rotate(2deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/chibi (3).png" alt="Chibi">
+                    </div>
+
+                    <div class="art-piece sketch" style="transform: rotate(-2deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/sketch (1).png" alt="Sketch">
+                    </div>
+
+                    <div class="art-piece sketch" style="transform: rotate(-2deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/sketch (2).png" alt="Sketch">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prices">
+            <h2>Prices</h2>
+            <p><i class="fas fa-globe"></i> <span id="user-region">Detecting...</span></p>
+
+            <div class="price-grid">
+                <div class="price-category">
+                    <h3>Illustration</h3>
+                    <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="60k"
+                            data-usd="$12">...</span></div>
+                    <div class="price-item"><span>Halfbody</span><span class="price-val" data-idr="80k"
+                            data-usd="$18">...</span></div>
+                    <div class="price-item"><span>Knee up</span><span class="price-val" data-idr="100k"
+                            data-usd="$22">...</span></div>
+                    <div class="price-item"><span>Fullbody</span><span class="price-val" data-idr="120k"
+                            data-usd="$28">...</span></div>
+                </div>
+
+                <div class="price-category">
+                    <h3>Chibi</h3>
+                    <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="30k"
+                            data-usd="$8">...</span></div>
+                    <div class="price-item"><span>Half Body</span><span class="price-val" data-idr="45k"
+                            data-usd="$10">...</span></div>
+                    <div class="price-item"><span>Full Body</span><span class="price-val" data-idr="60k"
+                            data-usd="$15">...</span></div>
+                </div>
+
+                <div class="price-category">
+                    <h3>Sketch</h3>
+                    <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="15k"
+                            data-usd="$3">...</span></div>
+                    <div class="price-item"><span>Halfbody</span><span class="price-val" data-idr="25k"
+                            data-usd="$5">...</span></div>
+                    <div class="price-item"><span>Knee up</span><span class="price-val" data-idr="30k"
+                            data-usd="$6">...</span></div>
+                    <div class="price-item"><span>Fullbody</span><span class="price-val" data-idr="35k"
+                            data-usd="$7">...</span></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Waiting List:</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Priority</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Start</th>
+                            <th>Finish</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody id="wl-body">
+                        <tr>
+                            <td colspan="7">Loading notes...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="partners">
+            <h2>Friend & partner</h2>
+            <div class="partner-grid">
+                <a href="https://pricelisthoshi.netlify.app" class="partner-card">
+                    <div class="partner-tape2"></div>
+                    <img src="/hoshi.png" alt="Friend 1">
+                    <div style="font-weight: bold;">Star Hoshiri</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">CSS & Widget programer</div>
+                </a>
+                <a href="https://violetcommissioncorner.netlify.app" class="partner-card">
+                    <div class="partner-tape"></div>
+                    <img src="/violet.png" alt="Friend 2">
+                    <div style="font-weight: bold;">Violet Thebard</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">Live 2d rigger</div>
+                </a>
+            </div>
+        </section>
+
+        <hr style="border: 1px dashed #ccc; margin-bottom: 50px;">
+
+        <section id="tos">
+            <h2>Terms of Service</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div>
+                    <h3>☆ GENERAL POLICY ☆</h3>
+                    <ul class="tos-list">
+                        <li>The commission is not for resale.</li>
+                        <li>Commercial price is 2x the base price.</li>
+                        <li>I have the right to refuse a commission.</li>
+                        <li>I can post my work as a sample.</li>
+                    </ul>
+                    <h3>☆ PURCHASE ☆</h3>
+                    <ul class="tos-list">
+                        <li>Client must pay 50% before the sketching process.</li>
+                        <li>Client must pay within 48 hours, otherwise the slot will be cancelled.</li>
+                        <li style="font-weight: bold;">NO REFUND OR CHARGEBACK.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>☆ PROCESS / PROGRESS ☆</h3>
+                    <ul class="tos-list">
+                        <li>Send clear and proper references in 1 file!</li>
+                        <li>Revisions allowed during sketching phase.</li>
+                        <li>Estimation: 3-5 days (Illustration).</li>
+                        <li>Work done according to queue.</li>
+                        <li>Process flow: Sketch -> Final Coloring.</li>
+                        <li>Files delivered via Google Drive.</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 30px; text-align: center;">
+                <h3>☆ Payment ☆</h3>
+                <p style="font-size: 1.2rem;">Dana | PayPal</p>
+            </div>
+        </section>
+    </div>
+
+    <footer style="text-align: center; margin: 40px 0; opacity: 0.6;">
+        <p>© 2026 StarHoshiri</p>
+    </footer>
+
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('collapsed');
+            section.classList.toggle('active');
+        }
+
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.art-piece');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Atur tombol aktif
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Saring gambar
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VZaGd4JBDvMmZ-sczU322m2tcOMsK1Q-aF8-6tPVU4Phn0dNiSmXcjeUIAoq7JMSJqaKcdOVW585/pub?output=csv";
+
+        async function init() {
+            // Deteksi Region
+            const offset = new Date().getTimezoneOffset() / -60;
+            const isIndo = offset >= 7 && offset <= 9;
+            document.getElementById('user-region').innerText = isIndo ? "Indonesia Region" : "Global Region";
+
+            document.querySelectorAll('.price-val').forEach(el => {
+                const prefix = isIndo ? "Rp " : "";
+                el.innerText = prefix + (isIndo ? el.getAttribute('data-idr') : el.getAttribute('data-usd'));
+            });
+
+            try {
+                const res = await fetch(SHEET_URL);
+                const csv = await res.text();
+                const rows = csv.split('\n').map(r => r.split(','));
+
+                // Status Update (Baris 1 Kolom B)
+                const statusValue = rows[0][1]?.trim().toUpperCase() || "";
+                const statusElement = document.getElementById('status-text');
+
+                if (statusValue.includes('OPEN')) {
+                    statusElement.innerText = "✿ OPEN ✿";
+                    statusElement.style.background = "#b8d8be";
+                } else {
+                    statusElement.innerText = "✿ CLOSED ✿";
+                    statusElement.style.background = "#ffb6c1";
+                }
+
+                // Tabel Waiting List (Mulai Baris 5, Kolom A-G)
+                let html = "";
+                for (let i = 4; i < rows.length; i++) {
+                    const customer = rows[i][0]?.trim();
+                    if (customer && customer !== "") {
+                        html += `<tr>
+                            <td>${rows[i][0] || "-"}</td>
+                            <td>${rows[i][1] || "-"}</td>
+                            <td>${rows[i][2] || "-"}</td>
+                            <td><span class="status-tag">${rows[i][3] || "-"}</span></td>
+                            <td>${rows[i][4] || "-"}</td>
+                            <td>${rows[i][5] || "-"}</td>
+                            <td>${rows[i][6] || "-"}</td>
+                        </tr>`;
+                    }
+                }
+                document.getElementById('wl-body').innerHTML = html || "<tr><td colspan='7'>No one here yet!</td></tr>";
+            } catch (e) {
+                console.error(e);
+                document.getElementById('wl-body').innerHTML = "<tr><td colspan='7'>Failed to load queue.</td></tr>";
+            }
+        }
+        init();
+    </script>
+</body>
+
+</html>
