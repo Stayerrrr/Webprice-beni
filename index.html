@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1024">
     <title>Beni Starphea</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Schoolbell&display=swap" rel="stylesheet">
@@ -29,6 +29,8 @@
             color: var(--ink);
             margin: 0;
             padding: 40px 10px;
+            /* Menghindari layout bergeser saat zoom */
+            min-width: 1024px;
         }
 
         .journal-page {
@@ -115,12 +117,18 @@
         }
 
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            column-count: 3;
+            /* Membagi menjadi 3 kolom */
+            column-gap: 20px;
+            display: block;
+            /* Matikan grid jika menggunakan column-count */
         }
 
         .art-piece {
+            display: inline-block;
+            /* Penting agar gambar tidak terputus antar kolom */
+            width: 100%;
+            margin-bottom: 20px;
             background: white;
             padding: 5px;
             border: 1px solid #eee;
@@ -128,8 +136,9 @@
         }
 
         .art-piece img {
+            height: auto;
+            /* Gambar landscape/portrait akan mengikuti ukuran aslinya */
             width: 100%;
-            display: block;
         }
 
         .partner-grid {
@@ -188,7 +197,6 @@
             border: 2px solid var(--highlight);
         }
 
-        /* Tambahkan di dalam <style> */
         .filter-container {
             text-align: center;
             margin-bottom: 25px;
@@ -216,7 +224,6 @@
 
         .art-piece.hidden {
             display: none;
-            /* Menyembunyikan gambar yang tidak dipilih */
         }
 
         .tos-list {
@@ -244,6 +251,31 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
+        }
+
+        /* Badge Bulat untuk Diskon/Limited */
+        .price-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff4d4d;
+            /* Warna merah mencolok */
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            line-height: 1;
+            transform: rotate(15deg);
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            border: 2px dashed white;
+            font-family: 'Schoolbell', cursive;
         }
 
         .price-category {
@@ -276,11 +308,8 @@
             font-weight: bold;
         }
 
-        /* Table Styling */
         .table-container {
             width: 100%;
-            overflow-x: auto;
-            /* Memungkinkan scroll horizontal di HP */
             margin-top: 15px;
         }
 
@@ -288,7 +317,6 @@
             width: 100%;
             border-collapse: collapse;
             min-width: 600px;
-            /* Menjaga tabel tidak terlalu sempit */
         }
 
         th {
@@ -338,19 +366,6 @@
             background: white;
         }
 
-        @media (max-width: 600px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-
-            .bookmarks {
-                display: none;
-            }
-
-            .journal-page {
-                padding: 30px 20px;
-            }
-        }
 
         section h2 {
             cursor: pointer;
@@ -408,8 +423,8 @@
 
         <div class="social-wrap">
             <a href="https://x.com/StarPhea69462" class="social-link"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            <a href="https://www.instagram.com/starphea_/" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@beni_starphea" class="social-link"><i class="fab fa-tiktok"></i></a>
             <a href="https://vgen.co/Starphea" class="social-link"><i class="fas fa-store"></i></a>
         </div>
 
@@ -461,6 +476,11 @@
                         <img src="/work/ilustration (6).png" alt="Illustration">
                     </div>
 
+                    <div class="art-piece illustration" style="transform: rotate(-1deg);">
+                        <div class="galery-tape"></div>
+                        <img src="/work/ilustration (7).png" alt="Illustration">
+                    </div>
+
                     <div class="art-piece chibi" style="transform: rotate(2deg);">
                         <div class="galery-tape"></div>
                         <img src="/work/chibi (1).png" alt="Chibi">
@@ -496,36 +516,57 @@
             <div class="price-grid">
                 <div class="price-category">
                     <h3>Illustration</h3>
-                    <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="60k"
-                            data-usd="$12">...</span></div>
+                    <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="70k"
+                            data-usd="$10">...</span></div>
                     <div class="price-item"><span>Halfbody</span><span class="price-val" data-idr="80k"
-                            data-usd="$18">...</span></div>
+                            data-usd="$20">...</span></div>
                     <div class="price-item"><span>Knee up</span><span class="price-val" data-idr="100k"
-                            data-usd="$22">...</span></div>
+                            data-usd="$35">...</span></div>
                     <div class="price-item"><span>Fullbody</span><span class="price-val" data-idr="120k"
-                            data-usd="$28">...</span></div>
+                            data-usd="$40">...</span></div>
                 </div>
 
                 <div class="price-category">
                     <h3>Chibi</h3>
-                    <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="30k"
-                            data-usd="$8">...</span></div>
-                    <div class="price-item"><span>Half Body</span><span class="price-val" data-idr="45k"
-                            data-usd="$10">...</span></div>
                     <div class="price-item"><span>Full Body</span><span class="price-val" data-idr="60k"
-                            data-usd="$15">...</span></div>
+                            data-usd="$20">...</span></div>
                 </div>
 
                 <div class="price-category">
                     <h3>Sketch</h3>
                     <div class="price-item"><span>Headshot</span><span class="price-val" data-idr="15k"
-                            data-usd="$3">...</span></div>
-                    <div class="price-item"><span>Halfbody</span><span class="price-val" data-idr="25k"
                             data-usd="$5">...</span></div>
+                    <div class="price-item"><span>Halfbody</span><span class="price-val" data-idr="25k"
+                            data-usd="$9">...</span></div>
                     <div class="price-item"><span>Knee up</span><span class="price-val" data-idr="30k"
-                            data-usd="$6">...</span></div>
+                            data-usd="$15">...</span></div>
                     <div class="price-item"><span>Fullbody</span><span class="price-val" data-idr="35k"
-                            data-usd="$7">...</span></div>
+                            data-usd="$25">...</span></div>
+                </div>
+            </div>
+
+            <h3
+                style="margin-top: 40px; font-family: 'Schoolbell', cursive; color: var(--accent); border-bottom: 2px solid var(--highlight); display: inline-block;">
+                Special Colab Commission
+            </h3>
+            <div class="price-grid" style="margin-top: 10px;">
+                <div class="price-category" style="border: 2px solid var(--tape-blue);">
+                    <div class="partner-tape2"></div>
+                    <h3>Emoticon Rig</h3>
+                    <div class="price-item"><span>6 emote + rigging</span><span class="price-val" data-idr="300k"
+                            data-usd="$60">...</span></div>
+                    <div style="font-size: 0.8rem; margin-top: 10px; opacity: 0.8;">*Collaboration with Violet Thebard
+                    </div>
+                </div>
+
+                <div class="price-category" style="border: 2px solid var(--tape-pink);">
+                    <div class="price-badge">LIMITED<br>DISCOUNT!</div>
+                    <div class="partner-tape"></div>
+                    <h3>CSS Design</h3>
+                    <div class="price-item"><span>Chat widget + design </span><span class="price-val" data-idr="150k"
+                            data-usd="$28">...</span></div>
+                    <div style="font-size: 0.8rem; margin-top: 10px; opacity: 0.8;">*Collaboration with Star Hoshiri
+                    </div>
                 </div>
             </div>
 
@@ -624,7 +665,6 @@
             const items = document.querySelectorAll('.art-piece');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            // Atur tombol aktif
             buttons.forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText === 'All')) {
@@ -632,7 +672,6 @@
                 }
             });
 
-            // Saring gambar
             items.forEach(item => {
                 if (category === 'all' || item.classList.contains(category)) {
                     item.classList.remove('hidden');
@@ -645,7 +684,6 @@
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VZaGd4JBDvMmZ-sczU322m2tcOMsK1Q-aF8-6tPVU4Phn0dNiSmXcjeUIAoq7JMSJqaKcdOVW585/pub?output=csv";
 
         async function init() {
-            // Deteksi Region
             const offset = new Date().getTimezoneOffset() / -60;
             const isIndo = offset >= 7 && offset <= 9;
             document.getElementById('user-region').innerText = isIndo ? "Indonesia Region" : "Global Region";
@@ -660,7 +698,6 @@
                 const csv = await res.text();
                 const rows = csv.split('\n').map(r => r.split(','));
 
-                // Status Update (Baris 1 Kolom B)
                 const statusValue = rows[0][1]?.trim().toUpperCase() || "";
                 const statusElement = document.getElementById('status-text');
 
@@ -672,7 +709,6 @@
                     statusElement.style.background = "#ffb6c1";
                 }
 
-                // Tabel Waiting List (Mulai Baris 5, Kolom A-G)
                 let html = "";
                 for (let i = 4; i < rows.length; i++) {
                     const customer = rows[i][0]?.trim();
